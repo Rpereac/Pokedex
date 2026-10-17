@@ -5,3 +5,8 @@ Thumbs.db
 
 .idea/
 .vscode/
+
+*.d.ts
+*.d.ts.map
+*.js.map
+*.js.map
