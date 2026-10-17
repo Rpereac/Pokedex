@@ -1,6 +1,6 @@
 # Pokedex 1st Gen
 
 
-#Generate .js files
+# Generate .js files
 
 npx tsc
