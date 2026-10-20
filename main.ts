@@ -1,0 +1,2 @@
+//EXERCICI 1
+

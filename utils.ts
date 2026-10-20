@@ -95,7 +95,10 @@ export function reproduirCrit(soundUrl: string): void {
  *  - Afegir el <li> al contenidor amb appendChild.
  */
 // TODO: Implementa la lògica de l'exercici 1 seguint els requisits
+import { BasePokemon } from "./models.js"
+export function renderiztarLlistaNoms(){
 
+}
 
 /**
  * EXERCICI 3
