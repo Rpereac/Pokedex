@@ -139,7 +139,7 @@ export const POKEMON_TYPES: Record<PokemonTypeName, PokemonType> = {
  *   get formattedId: retorna l'atribut id en format "#025" (3 xifres, amb zeros a l'esquerra. Pista: padStart).
  */
 
-class BasePokemon{
+export class BasePokemon{
     private _id: number
     private _name: string
     private _url: string

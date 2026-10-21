@@ -96,7 +96,19 @@ export function reproduirCrit(soundUrl: string): void {
  */
 // TODO: Implementa la lògica de l'exercici 1 seguint els requisits
 import { BasePokemon } from "./models.js"
-export function renderiztarLlistaNoms(){
+export function renderiztarLlistaNoms(llista: Models.BasePokemon[]){
+    let search = (document.getElementById("search-input") as HTMLInputElement).value
+    let div = document.querySelector(".search-box") as HTMLDivElement
+    div.innerHTML = '';
+    for (let index of llista){
+        let li = document.createElement("li");
+        li.dataset.id = index.id.toString()
+        li.dataset.name = index.name
+        li.dataset.url = index.url
+        div.appendChild(li)
+    }
+
+
 
 }
 
