@@ -218,5 +218,67 @@ class BasePokemon{
  *   get stats: retorna un array de type Stat
  */
 
+class DetailedPokemon extends BasePokemon{
+    private _weight: number
+    private _imageUrl: string
+    private _cryUrl: string | null
+    private _types: PokemonType[]
+    private _stats: Stat[]
 
+    constructor(pokemon: IPokeApiDetail, url: string){
+        super({name: pokemon.name, url: url})
+        this._weight = Number((pokemon.weight/10).toFixed(2))
+        this._imageUrl = pokemon.sprites.front_default ?? ""
+        this._cryUrl = pokemon.cries?.latest || null
+        this._types = pokemon.types
+            .map((t) => POKEMON_TYPES[t.type.name])
+            .filter((type): type is PokemonType => type !== undefined);
+        this._stats = pokemon.stats.map((s): Stat => [s.stat.name, s.base_stat]);
+    }
+
+
+    get types(): PokemonType[] {
+        return this._types;
+    }
+
+    set types(value: PokemonType[]) {
+        this._types = value;
+    }
+
+
+    get stats(): Stat[] {
+        return this._stats;
+    }
+
+    set stats(value: Stat[]) {
+        this._stats = value;
+    }
+
+
+    get imageUrl(): string {
+        return this._imageUrl;
+    }
+
+    set imageUrl(value: string) {
+        this._imageUrl = value;
+    }
+
+
+    get weight(): number {
+        return this._weight;
+    }
+
+    set weight(value: number) {
+        this._weight = value;
+    }
+
+
+    get cryUrl(): string | null {
+        return this._cryUrl;
+    }
+
+    set cryUrl(value: string | null) {
+        this._cryUrl = value;
+    }
+}
 
