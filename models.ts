@@ -139,7 +139,7 @@ export const POKEMON_TYPES: Record<PokemonTypeName, PokemonType> = {
  *   get formattedId: retorna l'atribut id en format "#025" (3 xifres, amb zeros a l'esquerra. Pista: padStart).
  */
 
-class BasePokemon{
+export class BasePokemon{
     private _id: number
     private _name: string
     private _url: string
@@ -218,7 +218,7 @@ class BasePokemon{
  *   get stats: retorna un array de type Stat
  */
 
-class DetailedPokemon extends BasePokemon{
+export class DetailedPokemon extends BasePokemon{
     private _weight: number
     private _imageUrl: string
     private _cryUrl: string | null
@@ -231,7 +231,7 @@ class DetailedPokemon extends BasePokemon{
         this._imageUrl = pokemon.sprites.front_default ?? ""
         this._cryUrl = pokemon.cries?.latest || null
         this._types = pokemon.types
-            .map((t) => POKEMON_TYPES[t.type.name])
+            .map((t) => POKEMON_TYPES[t.type.name as PokemonTypeName])
             .filter((type): type is PokemonType => type !== undefined);
         this._stats = pokemon.stats.map((s): Stat => [s.stat.name, s.base_stat]);
     }
