@@ -147,8 +147,8 @@ class BasePokemon{
     constructor(pokemon: IPokeApiListItem){
         const text = pokemon.url.split("/")
         this._id = Number(text.filter(Boolean).pop())
-        this._name = name
-        this._url = url
+        this._name = pokemon.name
+        this._url = pokemon.url
     }
 }
 
