@@ -177,6 +177,9 @@ export class BasePokemon{
     set url(value: string) {
         this._url = value;
     }
+    get formatted(){
+        return `#${this._id}`
+    }
 }
 
 
