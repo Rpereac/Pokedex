@@ -150,6 +150,33 @@ class BasePokemon{
         this._name = pokemon.name
         this._url = pokemon.url
     }
+
+
+    get name(): string {
+        return this._name;
+    }
+
+    set name(value: string) {
+        this._name = value;
+    }
+
+
+    get id(): number {
+        return this._id;
+    }
+
+    set id(value: number) {
+        this._id = value;
+    }
+
+
+    get url(): string {
+        return this._url;
+    }
+
+    set url(value: string) {
+        this._url = value;
+    }
 }
 
 
