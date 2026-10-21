@@ -96,7 +96,7 @@ export function reproduirCrit(soundUrl: string): void {
  */
 // TODO: Implementa la lògica de l'exercici 1 seguint els requisits
 
-import { BasePokemon } from "./models.js"
+import {BasePokemon, DetailedPokemon} from "./models.js"
 export function renderiztarLlistaNoms(llista: Models.BasePokemon[]){
     let search = (document.getElementById("search-input") as HTMLInputElement).value
     let div = document.querySelector(".search-box") as HTMLDivElement
@@ -150,17 +150,23 @@ export function renderitzaDetail(pokemon: DetailedPokemon){
     img.alt = pokemon.name
     div?.appendChild(img)
 
-    let boto
-    pokemon.cryUrl ? () => {
-            boto = document.createElement("button")
-            boto.id = "btn-play-cry"
-            boto.className = "btn-cry"
-            boto.onclick = () => reproduirCrit(pokemon.cryUrl ?? "")
-        } : boto = null
+
+    let boto: HTMLButtonElement | null = document.createElement("button")
+        boto.id = "btn-play-cry"
+        boto.className = "btn-cry"
+        boto.onclick = () => reproduirCrit(pokemon.cryUrl ?? "")
+    pokemon.cryUrl ? div?.appendChild(boto) : boto = null
 
     let pes = document.createElement("p")
+    let strongPes = document.createElement("strong")
+    strongPes.innerText = "Tipus:"
+    pes.appendChild(strongPes)
+    pes.innerText = `${pokemon.weight}`
+    div?.appendChild(pes)
 
     let tipus = document.createElement("p")
+    tipus.innerText = `${pokemon.types.join(", ")}`
+    div?.appendChild(tipus)
 
     let stats = document.createElement("div")
     stats.className = "stats-grid"
@@ -179,6 +185,7 @@ export function renderitzaDetail(pokemon: DetailedPokemon){
 
         stats.appendChild(stat)
     })
+    div?.appendChild(stats)
 }
 
 /**
