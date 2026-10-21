@@ -95,6 +95,7 @@ export function reproduirCrit(soundUrl: string): void {
  *  - Afegir el <li> al contenidor amb appendChild.
  */
 // TODO: Implementa la lògica de l'exercici 1 seguint els requisits
+
 import { BasePokemon } from "./models.js"
 export function renderiztarLlistaNoms(llista: Models.BasePokemon[]){
     let search = (document.getElementById("search-input") as HTMLInputElement).value
@@ -136,7 +137,49 @@ export function renderiztarLlistaNoms(llista: Models.BasePokemon[]){
  */
 
 // TODO: Implementa la lògica de l'exercici 3 seguint els requisits
+export function renderitzaDetail(pokemon: DetailedPokemon){
 
+    let div = document.getElementById("pokemon-detail")
+
+    let pokemonId = document.createElement("h3")
+    pokemonId.innerText = `#${pokemonId}`
+    div?.appendChild(pokemonId)
+
+    let img = document.createElement("img")
+    img.src = pokemon.imageUrl
+    img.alt = pokemon.name
+    div?.appendChild(img)
+
+    let boto
+    pokemon.cryUrl ? () => {
+            boto = document.createElement("button")
+            boto.id = "btn-play-cry"
+            boto.className = "btn-cry"
+            boto.onclick = () => reproduirCrit(pokemon.cryUrl ?? "")
+        } : boto = null
+
+    let pes = document.createElement("p")
+
+    let tipus = document.createElement("p")
+
+    let stats = document.createElement("div")
+    stats.className = "stats-grid"
+
+    pokemon.stats.map((s) => {
+        let stat = document.createElement("div")
+        stat.className = "stat-box"
+
+        let titleStat = document.createElement("span")
+        titleStat.innerText = s[0]
+        stat.appendChild(titleStat)
+
+        let valueStat = document.createElement("strong")
+        valueStat.innerText = s[1].toString()
+        stat.appendChild(valueStat)
+
+        stats.appendChild(stat)
+    })
+}
 
 /**
  * EXERCICI 4
