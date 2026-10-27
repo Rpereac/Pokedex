@@ -178,7 +178,7 @@ export class BasePokemon{
         this._url = value;
     }
     get formattedId(){
-        return `#${this._id}`
+        return `#${String(this._id).padStart(3, "0")}`
     }
 
     get displayName(): string{

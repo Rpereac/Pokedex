@@ -42,3 +42,28 @@ function buidarLlista(){
     mapaPokemon.clear();
 }
 
+const inputCerca= document.getElementById("search-input") as HTMLInputElement
+inputCerca.addEventListener("input", filtrarLlista)
+
+function filtrarLlista(): void{
+    const text = inputCerca.value.trim().toLowerCase();
+    const items = document.querySelectorAll<HTMLLIElement>("#pokemon-list li")
+
+    items.forEach((li) => {
+        const nom = li.dataset.name ?? ""
+        const id = li.dataset.id ?? ""
+        let coincideix: boolean;
+
+        if (text === ""){
+            coincideix = false;
+        }
+        else if (/^\d+$/.test(text)){
+            coincideix = Number(id) === Number(text)
+        }else{
+            coincideix = nom.includes(text)
+        }
+        li.classList.toggle("hidden", !coincideix)
+    })
+
+}
+
