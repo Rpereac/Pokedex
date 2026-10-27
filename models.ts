@@ -180,6 +180,10 @@ export class BasePokemon{
     get formatted(){
         return `#${this._id}`
     }
+
+    get displayName(): string{
+        return this._name.charAt(0).toUpperCase() + this._name.slice(1)
+    }
 }
 
 
