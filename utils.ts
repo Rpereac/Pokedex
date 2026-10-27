@@ -141,7 +141,7 @@ export function renderitzaDetail(pokemon: DetailedPokemon){
     let div = document.getElementById("pokemon-detail")
 
     let pokemonId = document.createElement("h3")
-    pokemonId.innerText = `#${pokemonId}`
+    pokemonId.innerText = pokemon.formattedId
     div?.appendChild(pokemonId)
 
     let img = document.createElement("img")
