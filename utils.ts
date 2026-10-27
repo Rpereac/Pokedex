@@ -108,8 +108,6 @@ export function renderiztarLlistaNoms(llista: Models.BasePokemon[]){
         ul.appendChild(li)
     }
 
-
-
 }
 
 /**

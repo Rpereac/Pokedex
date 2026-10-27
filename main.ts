@@ -18,8 +18,15 @@ async function carregarLlistaPokemon(){
         const resposta = await fetch("https://pokeapi.co/api/v2/pokemon?limit=151")
         if (!resposta.ok) throw new Error(`Error: ${resposta.status}`)
 
+        const pokemons: Models.BasePokemon[] = []
         const dades = (await resposta.json() as Models.IPokeApiListResponse)
-        Utils.amagarEstat();
+        dades.results.map((p) => {
+            const pokemon = new Models.BasePokemon(p)
+            mapaPokemon.set(pokemon.id, pokemon)
+            pokemons.push(pokemon)
+        } )
+
+        Utils.renderiztarLlistaNoms(pokemons);
     }
     catch (error){
 
