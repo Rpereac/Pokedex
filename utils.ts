@@ -98,15 +98,14 @@ export function reproduirCrit(soundUrl: string): void {
 
 import {BasePokemon, DetailedPokemon} from "./models.js"
 export function renderiztarLlistaNoms(llista: Models.BasePokemon[]){
-    let search = (document.getElementById("search-input") as HTMLInputElement).value
-    let div = document.querySelector(".search-box") as HTMLDivElement
-    div.innerHTML = '';
+    let ul = document.getElementById("pokemon-list") as HTMLUListElement
+    ul.innerHTML = "";
     for (let index of llista){
         let li = document.createElement("li");
         li.dataset.id = index.id.toString()
         li.dataset.name = index.name
         li.dataset.url = index.url
-        div.appendChild(li)
+        ul.appendChild(li)
     }
 
 
