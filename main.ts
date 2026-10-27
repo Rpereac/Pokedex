@@ -2,9 +2,9 @@
 
 import * as Utils from "./utils.js";
 import * as Models from "./models.js";
+import {renderitzarLlistaNoms} from "./utils.js";
 
 const mapaPokemon = new Map<number, Models.BasePokemon>();
-
 const btnLlistaPokemon = (document.getElementById("btn-show-all") as HTMLButtonElement)
 
 btnLlistaPokemon.addEventListener("click", carregarLlistaPokemon);
@@ -29,7 +29,7 @@ async function carregarLlistaPokemon(){
             pokemons.push(pokemon)
         } )
 
-        Utils.renderiztarLlistaNoms(pokemons);
+        Utils.renderitzarLlistaNoms(pokemons);
         Utils.amagarEstat();
     }
     catch (error){
