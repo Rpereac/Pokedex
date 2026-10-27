@@ -22,7 +22,8 @@ async function carregarLlistaPokemon(){
         Utils.amagarEstat();
     }
     catch (error){
-
+        const missatge = error instanceof Error ? error.message : "Error desconegut";
+        Utils.mostrarEstat(missatge, "error");
     }
 }
 
