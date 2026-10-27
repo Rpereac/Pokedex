@@ -1,9 +1,3 @@
-// ==========================================================
-// 1. INTERFÍCIES DTO (Contractes de dades de la PokéAPI)
-//    Ja venen donades. Descriuen la forma del JSON que retorna l'API.
-//    IMPORTANT: només existeixen en temps de compilació. TypeScript NO
-//    valida en execució que l'API realment retorni aquesta estructura.
-// ==========================================================
 
 export interface IPokeApiListItem {
     name: string;
@@ -288,4 +282,3 @@ export class DetailedPokemon extends BasePokemon{
         this._cryUrl = value;
     }
 }
-

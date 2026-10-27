@@ -1,5 +1,3 @@
-//EXERCICI 1
-
 import * as Utils from "./utils.js";
 import * as Models from "./models.js";
 
@@ -29,7 +27,7 @@ async function carregarLlistaPokemon(){
             pokemons.push(pokemon)
         } )
 
-        Utils.renderiztarLlistaNoms(pokemons);
+        Utils.renderitzarLlistaNoms(pokemons);
         Utils.amagarEstat();
     }
     catch (error){
