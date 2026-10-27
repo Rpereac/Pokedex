@@ -65,3 +65,4 @@ function filtrarLlista(): void{
 
 }
 
+Utils.generarBotonsTipus()
