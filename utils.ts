@@ -96,7 +96,6 @@ export function reproduirCrit(soundUrl: string): void {
  */
 // TODO: Implementa la lògica de l'exercici 1 seguint els requisits
 
-import {BasePokemon, DetailedPokemon} from "./models.js"
 export function renderiztarLlistaNoms(llista: Models.BasePokemon[]){
     let ul = document.getElementById("pokemon-list") as HTMLUListElement
     ul.innerHTML = "";
@@ -105,6 +104,7 @@ export function renderiztarLlistaNoms(llista: Models.BasePokemon[]){
         li.dataset.id = index.id.toString()
         li.dataset.name = index.name
         li.dataset.url = index.url
+        li.innerHTML = `<strong>${index.formattedId}</strong> - ${index.displayName}`
         ul.appendChild(li)
     }
 
@@ -134,7 +134,7 @@ export function renderiztarLlistaNoms(llista: Models.BasePokemon[]){
  */
 
 // TODO: Implementa la lògica de l'exercici 3 seguint els requisits
-export function renderitzaDetail(pokemon: DetailedPokemon){
+export function renderitzaDetail(pokemon: Models.DetailedPokemon){
 
     let div = document.getElementById("pokemon-detail")
 

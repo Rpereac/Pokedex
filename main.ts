@@ -1,7 +1,7 @@
 //EXERCICI 1
 
 import * as Utils from "./utils.js";
-import * as Models from "./models";
+import * as Models from "./models.js";
 
 const mapaPokemon = new Map<number, Models.BasePokemon>();
 
@@ -13,10 +13,13 @@ btnLlistaPokemon.addEventListener("dblclick", buidarLlista);
 
 async function carregarLlistaPokemon(){
     try {
+        Utils.netejarCercador();
         Utils.mostrarEstat("Carregant llista...", "loading");
 
         const resposta = await fetch("https://pokeapi.co/api/v2/pokemon?limit=151")
-        if (!resposta.ok) throw new Error(`Error: ${resposta.status}`)
+        if (!resposta.ok) {
+            throw new Error(`Error: ${resposta.status}`)
+        }
 
         const pokemons: Models.BasePokemon[] = []
         const dades = (await resposta.json() as Models.IPokeApiListResponse)
@@ -27,6 +30,7 @@ async function carregarLlistaPokemon(){
         } )
 
         Utils.renderiztarLlistaNoms(pokemons);
+        Utils.amagarEstat();
     }
     catch (error){
         const missatge = error instanceof Error ? error.message : "Error desconegut";
