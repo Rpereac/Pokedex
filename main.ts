@@ -29,7 +29,8 @@ async function carregarLlistaPokemon(){
         Utils.renderiztarLlistaNoms(pokemons);
     }
     catch (error){
-
+        const missatge = error instanceof Error ? error.message : "Error desconegut";
+        Utils.mostrarEstat(missatge, "error");
     }
 }
 
