@@ -79,14 +79,14 @@ function filtrarLlista(): void{
     const items = document.querySelectorAll<HTMLLIElement>("#pokemon-list li")
 
     items.forEach((li) => {
-        const nom = li.dataset.name ?? ""
+        const nom = li.dataset.name?.toLowerCase() ?? ""
         const id = li.dataset.id ?? ""
         let coincideix: boolean;
 
         if (text === ""){
             coincideix = true;
         }
-        else if (/^\d+$/.test(text)){
+        else if (Number.isInteger(Number(text))){
             coincideix = Number(id) === Number(text)
         }else{
             coincideix = nom.includes(text)

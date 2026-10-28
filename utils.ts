@@ -140,7 +140,7 @@ export function renderitzaDetallCard(pokemon: Models.DetailedPokemon){
     div?.classList.add("detail-card")
     let pokemonId = document.createElement("h3")
     pokemonId.classList.add("detail-card")
-    pokemonId.innerText = pokemon.formattedId
+    pokemonId.innerText = pokemon.formattedId +" " + pokemon.displayName
     div?.appendChild(pokemonId)
 
     let img = document.createElement("img")
