@@ -113,9 +113,13 @@ async function carregarPokemonPerTipus(tipus: string){
         pokemonTipus.pokemon.map((p) => {
             const basePokemon = new BasePokemon((p.pokemon))
             pokemons.push(basePokemon)
-            const cacheTipus = Array.from(cachePokemon.values()).filter((p) => p.types.includes(POKEMON_TYPES[tipus as PokemonTypeName] as PokemonType))
-
-        })
+        for (const [id, pokemon] of Object.entries(cachePokemon)) {
+            let pokemonType = POKEMON_TYPES[tipus as PokemonTypeName] as PokemonType
+            if (!pokemon.types.includes(pokemonType)) {
+                delete cachePokemon[id]
+            }
+        }      
+})
     }catch (error){
         const missatge = error instanceof Error ? error.message : "Error desconegut";
         Utils.mostrarEstat(missatge, "error");
