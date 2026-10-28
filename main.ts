@@ -2,8 +2,11 @@ import * as Utils from "./utils.js";
 import * as Models from "./models.js";
 import {BasePokemon, POKEMON_TYPES, PokemonType, PokemonTypeName} from "./models.js";
 
+const mapaPokemon = new Map<number, Models.BasePokemon>();
+
 const cachePokemon = new Map<number, Models.DetailedPokemon>();
 
+let tipusActiu: string | null = null
 const btnLlistaPokemon = (document.getElementById("btn-show-all") as HTMLButtonElement)
 
 btnLlistaPokemon.addEventListener("click", carregarLlistaPokemon);
@@ -33,14 +36,14 @@ async function carregarLlistaPokemon(){
             throw new Error(`Error: ${resposta.status}`)
         }
 
-        const pokemons: Models.BasePokemon[] = []
-        const dades = (await resposta.json() as Models.IPokeApiListResponse)
-        dades.results.map((p) => {
-            const pokemon = new Models.BasePokemon(p)
-            pokemons.push(pokemon)
-        } )
 
-        Utils.renderitzarLlistaNoms(pokemons);
+        const dades = (await resposta.json() as Models.IPokeApiListResponse)
+        dades.results.forEach((p) => {
+            const pokemon = new Models.BasePokemon(p)
+            mapaPokemon.set(pokemon.id, pokemon)
+        })
+
+        Utils.renderitzarLlistaNoms(Array.from(mapaPokemon.values()));
         Utils.amagarEstat();
     }
     catch (error){
@@ -100,9 +103,24 @@ Utils.generarBotonsTipus()
 let btnfiltreContainer = document.querySelector("#type-filter-container") as HTMLDivElement
 btnfiltreContainer.addEventListener("click", (e) => {
     let btn = (e.target) as HTMLButtonElement
+    if (!btn) return;
+
     Utils.marcarItemActiu(btn)
-    let tipus = btn.dataset.type
-    carregarPokemonPerTipus(tipus ?? "")
+    let tipus = btn.dataset.type ?? ""
+    if(tipusActiu === tipus){
+        desmarcarBotonsTipus();
+        tipusActiu = null;
+
+        Utils.renderitzarLlistaNoms(Array.from(mapaPokemon.values()))
+        Utils.netejarCercador()
+        Utils.netejarDetallCard()
+    }else{
+        desmarcarBotonsTipus();
+        btn.classList.add("active")
+        tipusActiu = tipus
+
+        carregarPokemonPerTipus(tipus)
+    }
 })
 async function carregarPokemonPerTipus(tipus: string){
     try{
@@ -130,4 +148,9 @@ async function carregarPokemonPerTipus(tipus: string){
         const missatge = error instanceof Error ? error.message : "Error desconegut";
         Utils.mostrarEstat(missatge, "error");
     }
+}
+
+function desmarcarBotonsTipus(): void {
+    const botons = document.querySelectorAll<HTMLButtonElement>("#type-filter-container .btn-type");
+    botons.forEach((btn) => btn.classList.remove("active"));
 }
