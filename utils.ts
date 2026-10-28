@@ -102,7 +102,7 @@ export function renderitzarLlistaNoms(llista: Models.BasePokemon[]){
     for (let index of llista){
         let li = document.createElement("li");
         li.dataset.id = index.id.toString()
-        li.dataset.name = index.name
+        li.dataset.name = index.displayName
         li.dataset.url = index.url
         li.innerHTML = `<strong>${index.formattedId}</strong> - ${index.displayName}`
         ul.appendChild(li)
@@ -134,8 +134,8 @@ export function renderitzarLlistaNoms(llista: Models.BasePokemon[]){
  */
 
 // TODO: Implementa la lògica de l'exercici 3 seguint els requisits
-export function renderitzaDetail(pokemon: Models.DetailedPokemon){
-    console.log(pokemon)
+export function renderitzaDetallCard(pokemon: Models.DetailedPokemon){
+    netejarDetallCard()
     let div = document.getElementById("pokemon-detail")
 
     let pokemonId = document.createElement("h3")
@@ -151,8 +151,9 @@ export function renderitzaDetail(pokemon: Models.DetailedPokemon){
     let boto: HTMLButtonElement | null = document.createElement("button")
         boto.id = "btn-play-cry"
         boto.className = "btn-cry"
-        boto.onclick = () => reproduirCrit(pokemon.cryUrl ?? "")
-    pokemon.cryUrl ? div?.appendChild(boto) : boto = null
+        boto.textContent = "🔊 Escolta el crit"
+        boto.addEventListener("click", () => reproduirCrit(pokemon.cryUrl ?? ""))
+    div?.appendChild(boto)
 
     let pes = document.createElement("p")
     let strongPes = document.createElement("strong")
@@ -162,7 +163,8 @@ export function renderitzaDetail(pokemon: Models.DetailedPokemon){
     div?.appendChild(pes)
 
     let tipus = document.createElement("p")
-    tipus.innerText = `${pokemon.types.join(", ")}`
+    let text = pokemon.types.map((tipus) => tipus.label).join(", ")
+    tipus.innerText = text
     div?.appendChild(tipus)
 
     let stats = document.createElement("div")
@@ -173,7 +175,7 @@ export function renderitzaDetail(pokemon: Models.DetailedPokemon){
         stat.className = "stat-box"
 
         let titleStat = document.createElement("span")
-        titleStat.innerText = s[0]
+        titleStat.innerText = s[0].toUpperCase()
         stat.appendChild(titleStat)
 
         let valueStat = document.createElement("strong")
