@@ -50,6 +50,7 @@ async function carregarLlistaPokemon(){
 }
 
 async function carregarDetallPokemon(id: number, url: string): Promise<void>{
+    Utils.netejarDetallCard()
     try {
         const response = await fetch(url)
         if (!response.ok) {
@@ -105,11 +106,11 @@ btnfiltreContainer.addEventListener("click", (e) => {
 })
 async function carregarPokemonPerTipus(tipus: string){
     try{
-        const response = await fetch(`https://pokeapi.co/v2/type/${tipus}`)
+        const response = await fetch(`https://pokeapi.co/api/v2/type/${tipus}`)
         if(!response.ok){
             throw new Error(`Error: ${response.status}`)
         }
-        const pokemons = []
+        const pokemons: BasePokemon[] = []
         const pokemonTipus = await response.json() as Models.IPokeApiTypeResponse
         pokemonTipus.pokemon.map((p) => {
             const basePokemon = new BasePokemon((p.pokemon))
@@ -122,7 +123,8 @@ async function carregarPokemonPerTipus(tipus: string){
                 let pokemon = cachePokemon.get(Number(id))
                 cachePokemon.delete(Number(id))
             }
-        }      
+        }
+        Utils.renderitzarLlistaNoms(pokemons)
 })
     }catch (error){
         const missatge = error instanceof Error ? error.message : "Error desconegut";

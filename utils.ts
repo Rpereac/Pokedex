@@ -57,7 +57,7 @@ export function marcarItemActiu(target: HTMLElement): void {
 /**
  * Torna el panell de detall al seu estat inicial (placeholder).
  */
-export function netejarDetallCard(): void {
+export function  netejarDetallCard(): void {
     const container = document.getElementById("pokemon-detail");
     if (!container) return;
 
@@ -135,14 +135,16 @@ export function renderitzarLlistaNoms(llista: Models.BasePokemon[]){
 
 // TODO: Implementa la lògica de l'exercici 3 seguint els requisits
 export function renderitzaDetallCard(pokemon: Models.DetailedPokemon){
-    netejarDetallCard()
-    let div = document.getElementById("pokemon-detail")
-
+    let div = document.getElementById("pokemon-detail") as HTMLDivElement
+    div.innerHTML = ''
+    div?.classList.add("detail-card")
     let pokemonId = document.createElement("h3")
+    pokemonId.classList.add("detail-card")
     pokemonId.innerText = pokemon.formattedId
     div?.appendChild(pokemonId)
 
     let img = document.createElement("img")
+    img.classList.add("detail-card")
     img.src = pokemon.imageUrl
     img.alt = pokemon.name
     div?.appendChild(img)
