@@ -101,10 +101,11 @@ btnfiltreContainer.addEventListener("click", (e) => {
     let btn = (e.target) as HTMLButtonElement
     Utils.marcarItemActiu(btn)
     let tipus = btn.dataset.type
+    carregarPokemonPerTipus(tipus ?? "")
 })
 async function carregarPokemonPerTipus(tipus: string){
     try{
-        const response = await fetch(`https://pokeapi.co/v2/type/${tipus}/?limit=151`)
+        const response = await fetch(`https://pokeapi.co/v2/type/${tipus}`)
         if(!response.ok){
             throw new Error(`Error: ${response.status}`)
         }
@@ -112,11 +113,14 @@ async function carregarPokemonPerTipus(tipus: string){
         const pokemonTipus = await response.json() as Models.IPokeApiTypeResponse
         pokemonTipus.pokemon.map((p) => {
             const basePokemon = new BasePokemon((p.pokemon))
-            pokemons.push(basePokemon)
+            if(basePokemon.id <= 151){
+                pokemons.push(basePokemon)
+            }
         for (const [id, pokemon] of Object.entries(cachePokemon)) {
             let pokemonType = POKEMON_TYPES[tipus as PokemonTypeName] as PokemonType
             if (!pokemon.types.includes(pokemonType)) {
-                delete cachePokemon[id]
+                let pokemon = cachePokemon.get(Number(id))
+                cachePokemon.delete(Number(id))
             }
         }      
 })
